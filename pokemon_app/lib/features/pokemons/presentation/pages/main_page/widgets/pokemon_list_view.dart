@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:pokemon_app/features/pokemons/presentation/pages/main_page/widgets/pokemon_list_tile.dart';
 
 class PokemonListView extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class PokemonListView extends StatefulWidget {
 class _PokemonListViewState extends State<PokemonListView> {
   static const _pageSize = 20;
 
-  final PagingController<int, int> _pagingController =
+  final PagingController<int, String> _pagingController =
       PagingController(firstPageKey: 0);
 
   @override
@@ -22,7 +23,7 @@ class _PokemonListViewState extends State<PokemonListView> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final newItems = List.generate(100, (index) => index);
+      final newItems = List.generate(100, (index) => index.toString());
       final isLastPage = newItems.length < _pageSize;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
@@ -37,13 +38,12 @@ class _PokemonListViewState extends State<PokemonListView> {
 
   @override
   Widget build(BuildContext context) {
-    return PagedListView<int, int>(
+    return PagedListView<int, String>(
       pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<int>(
-        itemBuilder: (context, item, index) => Text(
-          item.toString(),
-        ),
-      ),
+      builderDelegate: PagedChildBuilderDelegate<String>(
+          itemBuilder: (context, item, index) => PokemonListTile(
+                pokemonName: item,
+              )),
     );
   }
 }
