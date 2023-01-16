@@ -1,15 +1,16 @@
 import 'package:equatable/equatable.dart';
 
-class ApiResult extends Equatable {
+class ApiPokemonResult extends Equatable {
   final String name;
   final String url;
 
-  const ApiResult(
+  const ApiPokemonResult(
     this.name,
     this.url,
   );
 
-  factory ApiResult.fromJson(Map<String, dynamic> json) => ApiResult(
+  factory ApiPokemonResult.fromJson(Map<String, dynamic> json) =>
+      ApiPokemonResult(
         json['name'],
         json['url'],
       );
