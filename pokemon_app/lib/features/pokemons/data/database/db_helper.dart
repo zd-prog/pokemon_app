@@ -76,7 +76,7 @@ class DBHelper {
     return pokemons;
   }
 
-  Future<List<PokemonDetailsModel>> getPokemonDetails(String url) async {
+  Future<PokemonDetailsModel> getPokemonDetails(String url) async {
     var dbClient = await db;
     List<Map> maps = await dbClient!.query(pokemonDetailsTable, columns: [
       name,
@@ -89,13 +89,15 @@ class DBHelper {
     List<PokemonDetailsModel> pokemonDetails = [];
     if (maps.isNotEmpty) {
       for (int i = 0; i < maps.length; i++) {
-        pokemonDetails.add(PokemonDetailsModel.fromJson(
-          Map<String, dynamic>.from(maps[i]),
-          url,
-        ));
+        pokemonDetails.add(
+          PokemonDetailsModel.fromJson(
+            Map<String, dynamic>.from(maps[i]),
+            url,
+          ),
+        );
       }
     }
-    return pokemonDetails;
+    return pokemonDetails.where((element) => element.url == url).first;
   }
 
   Future close() async {
