@@ -17,11 +17,14 @@ class PokemonDetailsModel extends PokemonDetails {
           url: url,
         );
 
-  factory PokemonDetailsModel.fromJson(Map<String, dynamic> json) =>
+  factory PokemonDetailsModel.fromJson(
+    Map<String, dynamic> json,
+    String url,
+  ) =>
       PokemonDetailsModel(
         json['name'],
         json['front_default'],
-        '',
+        url,
         json['types'],
         json['weight'],
         json['height'],
