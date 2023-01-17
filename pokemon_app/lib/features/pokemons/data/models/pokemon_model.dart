@@ -13,4 +13,13 @@ class PokemonModel extends Pokemon {
         json['name'],
         json['url'],
       );
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{
+      "name": name,
+      "url": url,
+    };
+
+    return map;
+  }
 }

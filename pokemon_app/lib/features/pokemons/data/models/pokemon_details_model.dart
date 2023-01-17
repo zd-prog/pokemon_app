@@ -29,4 +29,20 @@ class PokemonDetailsModel extends PokemonDetails {
         json['weight'],
         json['height'],
       );
+
+  Map<String, dynamic> toJson() {
+    String typesString = "";
+    for (var element in types) {
+      typesString += '$element ';
+    }
+    var map = <String, dynamic>{
+      "name": name,
+      "image": image,
+      "url": url,
+      "types": typesString,
+      "weight": weight,
+      "height": height,
+    };
+    return map;
+  }
 }
