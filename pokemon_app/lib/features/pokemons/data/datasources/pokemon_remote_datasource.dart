@@ -17,9 +17,31 @@ class PokemonRemoteDatasourceImpl implements PokemonRemoteDatasource {
   PokemonRemoteDatasourceImpl(this.client);
 
   @override
-  Future<PokemonDetailsModel> getPokemonDetails(String url) {
-    // TODO: implement getPokemonDetails
-    throw UnimplementedError();
+  Future<PokemonDetailsModel> getPokemonDetails(String url) async {
+    final response = await client.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      var pokemonDetails = (json.decode(response.body));
+      List<String> types = [];
+      (json.decode(response.body))['types']
+          .forEach((type) => types.add(type['type']['name']));
+      var map = {
+        "url": url,
+        "name": pokemonDetails['name'],
+        "image": pokemonDetails['sprites']['front_default'],
+        "types": types,
+        "weight": pokemonDetails['weight'],
+        "height": pokemonDetails['height'],
+      };
+      return PokemonDetailsModel.fromJson(
+        map,
+        url,
+      );
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
