@@ -6,8 +6,8 @@ class PokemonDetailsModel extends PokemonDetails {
     String image,
     String url,
     List<String> types,
-    double weight,
-    double height,
+    int weight,
+    int height,
   ) : super(
           height: height,
           name: name,
@@ -23,7 +23,7 @@ class PokemonDetailsModel extends PokemonDetails {
   ) =>
       PokemonDetailsModel(
         json['name'],
-        json['front_default'],
+        json['image'],
         url,
         json['types'],
         json['weight'],
@@ -31,15 +31,11 @@ class PokemonDetailsModel extends PokemonDetails {
       );
 
   Map<String, dynamic> toJson() {
-    String typesString = "";
-    for (var element in types) {
-      typesString += '$element ';
-    }
     var map = <String, dynamic>{
       "name": name,
       "image": image,
       "url": url,
-      "types": typesString,
+      "types": types,
       "weight": weight,
       "height": height,
     };

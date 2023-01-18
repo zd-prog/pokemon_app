@@ -5,8 +5,8 @@ class PokemonDetails extends Equatable {
   final String image;
   final String url;
   final List<String> types;
-  final double weight;
-  final double height;
+  final int weight;
+  final int height;
 
   const PokemonDetails({
     required this.name,
